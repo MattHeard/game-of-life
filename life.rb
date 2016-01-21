@@ -39,17 +39,6 @@ class Life
     Ncurses.mvaddstr(index, 0, row.map { |cell| picture(cell) }.join)
   end
 
-  private
-
-  def wait
-    sleep(0.2)
-  end
-
-  def display_grid
-    @grid.display(self)
-    @screen.refresh
-  end
-
   def neighbourhoods
     height.times.map { |r| width.times.map { |c| neighbourhood(r, c) } }
   end
@@ -61,10 +50,19 @@ class Life
     (centre == 1 && neighbours == 2) ? 1 : 0
   end
 
+  private
+
+  def wait
+    sleep(0.2)
+  end
+
+  def display_grid
+    @grid.display(self)
+    @screen.refresh
+  end
+
   def step_forward
-    @grid.matrix = neighbourhoods.map do |neighbourhood_row|
-      neighbourhood_row.map { |neighbourhood| apply_rule(neighbourhood) }
-    end
+    @grid.step_forward(self)
   end
 
   def initialise_screen

@@ -20,6 +20,12 @@ class Grid
     @matrix.each_with_index { |row, index| game.draw_row(index, row) }
   end
 
+  def step_forward(game)
+    @matrix = game.neighbourhoods.map do |neighbourhood_row|
+      neighbourhood_row.map { |neighbourhood| game.apply_rule(neighbourhood) }
+    end
+  end
+
   private
 
   def create_matrix
