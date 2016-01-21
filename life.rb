@@ -29,10 +29,6 @@ class Life
     refresh_screen
   end
 
-  def initialise_screen
-    @screen.prepare
-  end
-
   def refresh_screen
     @screen.refresh
   end
@@ -82,6 +78,10 @@ class Life
         @grid[r][c] = cell
       end
     end
+  end
+
+  def initialise_screen
+    @screen.prepare
   end
 
   def neighbour_count(neighbourhood)
