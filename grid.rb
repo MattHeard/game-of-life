@@ -12,6 +12,10 @@ class Grid
     @matrix.size
   end
 
+  def width
+    @matrix[0].size
+  end
+
   private
 
   def create_matrix

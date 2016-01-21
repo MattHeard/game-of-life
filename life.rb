@@ -92,7 +92,7 @@ class Life
   end
 
   def width
-    @grid.matrix[0].size
+    @grid.width
   end
 
   # TODO Figure out how to refactor this into Screen without breaking ncurses
