@@ -37,7 +37,7 @@ class Life
     @screen.refresh
   end
 
-  def close_screen
+  def exit
     @screen.close
   end
 
@@ -121,6 +121,6 @@ end
 if __FILE__ == $PROGRAM_NAME
   game = Life.new
   game.show_initial_configuration
-  1.upto(10000) { game.run_once }
-  game.close_screen
+  1.upto(10_000) { game.run_once }
+  game.exit
 end
