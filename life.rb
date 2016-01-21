@@ -121,8 +121,6 @@ end
 if __FILE__ == $PROGRAM_NAME
   game = Life.new
   game.show_initial_configuration
-  1.upto(10000) do |tick|
-    game.run_once
-  end
+  1.upto(10000) { game.run_once }
   game.close_screen
 end
