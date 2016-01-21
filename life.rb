@@ -39,7 +39,7 @@ class Life
   end
 
   def initialise_screen
-    Ncurses.initscr
+    @screen.prepare
   end
 
   def refresh_screen
