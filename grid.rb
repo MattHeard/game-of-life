@@ -16,6 +16,10 @@ class Grid
     @matrix[0].size
   end
 
+  def display(game)
+    @matrix.each_with_index { |row, index| game.draw_row(index, row) }
+  end
+
   private
 
   def create_matrix

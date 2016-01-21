@@ -46,11 +46,7 @@ class Life
   end
 
   def display_grid
-    @grid.matrix.each_with_index { |row, index| draw_row(index, row) }
-    refresh_screen
-  end
-
-  def refresh_screen
+    @grid.display(self)
     @screen.refresh
   end
 
