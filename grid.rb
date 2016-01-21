@@ -21,9 +21,13 @@ class Grid
   end
 
   def step_forward(game)
-    @matrix = game.neighbourhoods.map do |neighbourhood_row|
+    @matrix = neighbourhoods(game).map do |neighbourhood_row|
       neighbourhood_row.map { |neighbourhood| game.apply_rule(neighbourhood) }
     end
+  end
+
+  def neighbourhoods(game)
+    height.times.map { |r| width.times.map { |c| game.neighbourhood(r, c) } }
   end
 
   private
