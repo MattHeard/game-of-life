@@ -23,7 +23,7 @@ class Life
     Ncurses.initscr
   end
 
-  def refresh
+  def refresh_screen
     Ncurses.refresh
   end
 
@@ -47,7 +47,7 @@ if __FILE__ == $PROGRAM_NAME
   game.initialise_screen
   game.initialise_grid
   game.display_grid
-  game.refresh
+  game.refresh_screen
   sleep(2)
   game.close_screen
 end
