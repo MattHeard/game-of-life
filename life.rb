@@ -3,14 +3,17 @@
 require 'pp'
 require 'ncurses'
 
+require_relative 'screen'
+
 class Life
   PICTURE = [" ", "█"]
   UNKNOWN_VALUE_PICTURE = "?"
 
-  WINDOW_HEIGHT = `/usr/bin/env tput lines`.to_i - 2
-  WINDOW_WIDTH = `/usr/bin/env tput cols`.to_i - 2
+  WINDOW_HEIGHT = `/usr/bin/env tput lines`.to_i
+  WINDOW_WIDTH = `/usr/bin/env tput cols`.to_i
 
   def initialise_grid
+    @screen = Screen.new
     @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
     [ [ 0, 0, 0, 0, 0 ],
       [ 0, 0, 1, 1, 0 ],
