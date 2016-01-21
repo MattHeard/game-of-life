@@ -34,6 +34,11 @@ class Life
     wait
   end
 
+  # TODO Figure out how to refactor this into Screen without breaking ncurses
+  def draw_row(index, row)
+    Ncurses.mvaddstr(index, 0, row.map { |cell| picture(cell) }.join)
+  end
+
   private
 
   def wait
@@ -41,7 +46,7 @@ class Life
   end
 
   def display_grid
-    @grid.matrix.each_with_index { |row, index| display_row(index, row) }
+    @grid.matrix.each_with_index { |row, index| draw_row(index, row) }
     refresh_screen
   end
 
@@ -93,11 +98,6 @@ class Life
 
   def width
     @grid.width
-  end
-
-  # TODO Figure out how to refactor this into Screen without breaking ncurses
-  def display_row(index, row)
-    Ncurses.mvaddstr(index, 0, row.map { |cell| picture(cell) }.join)
   end
 
   def picture(cell)
