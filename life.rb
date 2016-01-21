@@ -4,7 +4,6 @@ require 'pp'
 require 'ncurses'
 
 class Life
-  attr_reader :grid
   PICTURE = [" ", "█"]
   UNKNOWN_VALUE_PICTURE = "?"
 
