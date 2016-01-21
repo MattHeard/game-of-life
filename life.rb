@@ -18,10 +18,25 @@ class Life
     initialise_screen
   end
 
-  def step_forward
-    @grid = neighbourhoods.map do |neighbourhood_row|
-      neighbourhood_row.map { |neighbourhood| apply_rule(neighbourhood) }
-    end
+  def exit
+    @screen.close
+  end
+
+  def run_once
+    step_forward
+    display_grid
+    wait
+  end
+
+  def show_initial_configuration
+    display_grid
+    wait
+  end
+
+  private
+
+  def wait
+    sleep(0.2)
   end
 
   def display_grid
@@ -31,10 +46,6 @@ class Life
 
   def refresh_screen
     @screen.refresh
-  end
-
-  def exit
-    @screen.close
   end
 
   def neighbourhoods
@@ -48,22 +59,11 @@ class Life
     (centre == 1 && neighbours == 2) ? 1 : 0
   end
 
-  def run_once
-    step_forward
-    display_grid
-    wait
+  def step_forward
+    @grid = neighbourhoods.map do |neighbourhood_row|
+      neighbourhood_row.map { |neighbourhood| apply_rule(neighbourhood) }
+    end
   end
-
-  def wait
-    sleep(0.2)
-  end
-
-  def show_initial_configuration
-    display_grid
-    wait
-  end
-
-  private
 
   def initialise_grid
     @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
