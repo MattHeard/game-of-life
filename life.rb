@@ -3,6 +3,7 @@
 require 'pp'
 require 'ncurses'
 
+require_relative 'grid'
 require_relative 'screen'
 
 class Life
@@ -14,7 +15,7 @@ class Life
 
   def initialize
     @screen = Screen.new
-    initialise_grid
+    @grid = Grid.new
     initialise_screen
   end
 
@@ -40,7 +41,7 @@ class Life
   end
 
   def display_grid
-    @grid.each_with_index { |row, index| display_row(index, row) }
+    @grid.matrix.each_with_index { |row, index| display_row(index, row) }
     refresh_screen
   end
 
@@ -60,23 +61,8 @@ class Life
   end
 
   def step_forward
-    @grid = neighbourhoods.map do |neighbourhood_row|
+    @grid.matrix = neighbourhoods.map do |neighbourhood_row|
       neighbourhood_row.map { |neighbourhood| apply_rule(neighbourhood) }
-    end
-  end
-
-  def initialise_grid
-    @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
-    [ [ 0, 0, 0, 0, 0 ],
-      [ 0, 0, 1, 1, 0 ],
-      [ 0, 1, 1, 0, 0 ],
-      [ 0, 0, 1, 0, 0 ],
-      [ 0, 0, 0, 0, 0 ] ].each_with_index do |row, row_index|
-      row.each_with_index do |cell, cell_index|
-        r = WINDOW_HEIGHT / 2 - 2 + row_index
-        c = WINDOW_WIDTH / 2 - 2 + cell_index
-        @grid[r][c] = cell
-      end
     end
   end
 
@@ -96,17 +82,17 @@ class Life
   def neighbourhood(r, c)
     (-1..1).map do |row_offset|
       (-1..1).map do |column_offset|
-        @grid[(r + row_offset) % height][(c + column_offset) % width]
+        @grid.matrix[(r + row_offset) % height][(c + column_offset) % width]
       end
     end
   end
 
   def height
-    @grid.size
+    @grid.matrix.size
   end
 
   def width
-    @grid[0].size
+    @grid.matrix[0].size
   end
 
   # TODO Figure out how to refactor this into Screen without breaking ncurses
