@@ -8,6 +8,10 @@ class Grid
     @matrix = create_matrix
   end
 
+  def height
+    @matrix.size
+  end
+
   private
 
   def create_matrix

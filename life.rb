@@ -88,7 +88,7 @@ class Life
   end
 
   def height
-    @grid.matrix.size
+    @grid.height
   end
 
   def width
