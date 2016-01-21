@@ -14,6 +14,7 @@ class Life
 
   def initialize
     @screen = Screen.new
+    initialise_grid
   end
 
   def initialise_grid
@@ -113,7 +114,6 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   game = Life.new
-  game.initialise_grid
   game.initialise_screen
   game.display_grid
   game.wait
