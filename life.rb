@@ -39,6 +39,8 @@ class Life
     height.times.map { |r| width.times.map { |c| neighbourhood(r, c) } }
   end
 
+  private
+
   def neighbourhood(r, c)
     (-1..1).map do |row_offset|
       (-1..1).map do |column_offset|
@@ -46,8 +48,6 @@ class Life
       end
     end
   end
-
-  private
 
   def height
     @grid.size
