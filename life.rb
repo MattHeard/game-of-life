@@ -15,6 +15,7 @@ class Life
   def initialize
     @screen = Screen.new
     initialise_grid
+    initialise_screen
   end
 
   def step_forward
@@ -114,7 +115,6 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   game = Life.new
-  game.initialise_screen
   game.display_grid
   game.wait
   1.upto(10000) do |tick|
