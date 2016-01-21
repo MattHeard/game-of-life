@@ -17,21 +17,6 @@ class Life
     initialise_grid
   end
 
-  def initialise_grid
-    @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
-    [ [ 0, 0, 0, 0, 0 ],
-      [ 0, 0, 1, 1, 0 ],
-      [ 0, 1, 1, 0, 0 ],
-      [ 0, 0, 1, 0, 0 ],
-      [ 0, 0, 0, 0, 0 ] ].each_with_index do |row, row_index|
-      row.each_with_index do |cell, cell_index|
-        r = WINDOW_HEIGHT / 2 - 2 + row_index
-        c = WINDOW_WIDTH / 2 - 2 + cell_index
-        @grid[r][c] = cell
-      end
-    end
-  end
-
   def step_forward
     @grid = neighbourhoods.map do |neighbourhood_row|
       neighbourhood_row.map { |neighbourhood| apply_rule(neighbourhood) }
@@ -77,6 +62,21 @@ class Life
   end
 
   private
+
+  def initialise_grid
+    @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
+    [ [ 0, 0, 0, 0, 0 ],
+      [ 0, 0, 1, 1, 0 ],
+      [ 0, 1, 1, 0, 0 ],
+      [ 0, 0, 1, 0, 0 ],
+      [ 0, 0, 0, 0, 0 ] ].each_with_index do |row, row_index|
+      row.each_with_index do |cell, cell_index|
+        r = WINDOW_HEIGHT / 2 - 2 + row_index
+        c = WINDOW_WIDTH / 2 - 2 + cell_index
+        @grid[r][c] = cell
+      end
+    end
+  end
 
   def neighbour_count(neighbourhood)
     total = neighbourhood.flatten.inject(0) { |sum, n| sum + n }
