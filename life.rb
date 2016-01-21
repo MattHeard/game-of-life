@@ -12,10 +12,17 @@ class Life
 
   def initialise_grid
     @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
-    @grid[WINDOW_HEIGHT / 2][WINDOW_WIDTH / 2] = 1
+    @grid[WINDOW_HEIGHT / 2 - 1][WINDOW_WIDTH / 2 + 2] = 1
+    @grid[WINDOW_HEIGHT / 2 + 0][WINDOW_WIDTH / 2 + 2] = 1
+    @grid[WINDOW_HEIGHT / 2 + 1][WINDOW_WIDTH / 2 + 2] = 1
+    @grid[WINDOW_HEIGHT / 2 + 1][WINDOW_WIDTH / 2 + 1] = 1
+    @grid[WINDOW_HEIGHT / 2 + 0][WINDOW_WIDTH / 2 + 0] = 1
   end
 
   def step_forward
+    @grid = neighbourhoods.map do |neighbourhood_row|
+      neighbourhood_row.map { |neighbourhood| apply_rule(neighbourhood) }
+    end
   end
 
   def display_grid
@@ -38,7 +45,30 @@ class Life
     height.times.map { |r| width.times.map { |c| neighbourhood(r, c) } }
   end
 
+  def apply_rule(neighbourhood)
+    neighbours = neighbour_count(neighbourhood)
+    centre = centre(neighbourhood)
+    return 1 if neighbours == 3
+    (centre == 1 && neighbours == 2) ? 1 : 0
+  end
+
+  def run_once
+    step_forward
+    display_grid
+    refresh_screen
+    sleep(0.5)
+  end
+
   private
+
+  def neighbour_count(neighbourhood)
+    total = neighbourhood.flatten.inject(0) { |sum, n| sum + n }
+    total - centre(neighbourhood)
+  end
+
+  def centre(neighbourhood)
+    neighbourhood[1][1]
+  end
 
   def neighbourhood(r, c)
     (-1..1).map do |row_offset|
@@ -68,13 +98,15 @@ end
 if __FILE__ == $PROGRAM_NAME
   game = Life.new
   game.initialise_grid
-  pp game.neighbourhoods
-  # game.initialise_screen
-  # 2.times do |_|
-  #   game.step_forward
-  #   game.display_grid
-  #   game.refresh_screen
-  #   sleep(2)
-  # end
-  # game.close_screen
+  game.initialise_screen
+  game.display_grid
+  game.refresh_screen
+  sleep(0.5)
+  game.run_once
+  game.run_once
+  game.run_once
+  game.run_once
+  game.run_once
+  game.run_once
+  game.close_screen
 end
