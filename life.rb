@@ -13,9 +13,9 @@ class Life
   def initialise_grid
     @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
     [ [ 0, 0, 0, 0, 0 ],
-      [ 0, 1, 1, 1, 0 ],
-      [ 0, 1, 0, 1, 0 ],
-      [ 0, 1, 1, 1, 0 ],
+      [ 0, 0, 1, 1, 0 ],
+      [ 0, 1, 1, 0, 0 ],
+      [ 0, 0, 1, 0, 0 ],
       [ 0, 0, 0, 0, 0 ] ].each_with_index do |row, row_index|
       row.each_with_index do |cell, cell_index|
         r = WINDOW_HEIGHT / 2 - 2 + row_index
@@ -112,7 +112,7 @@ if __FILE__ == $PROGRAM_NAME
   game.display_grid
   game.refresh_screen
   game.wait
-  1.upto(100) do |tick|
+  1.upto(10000) do |tick|
     game.run_once
   end
   game.close_screen
