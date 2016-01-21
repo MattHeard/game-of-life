@@ -43,7 +43,7 @@ class Life
   end
 
   def refresh_screen
-    Ncurses.refresh
+    @screen.refresh
   end
 
   def close_screen
