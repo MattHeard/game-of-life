@@ -12,11 +12,17 @@ class Life
 
   def initialise_grid
     @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
-    @grid[WINDOW_HEIGHT / 2 - 1][WINDOW_WIDTH / 2 + 2] = 1
-    @grid[WINDOW_HEIGHT / 2 + 0][WINDOW_WIDTH / 2 + 2] = 1
-    @grid[WINDOW_HEIGHT / 2 + 1][WINDOW_WIDTH / 2 + 2] = 1
-    @grid[WINDOW_HEIGHT / 2 + 1][WINDOW_WIDTH / 2 + 1] = 1
-    @grid[WINDOW_HEIGHT / 2 + 0][WINDOW_WIDTH / 2 + 0] = 1
+    [ [ 0, 0, 0, 0, 0 ],
+      [ 0, 1, 1, 1, 0 ],
+      [ 0, 1, 0, 1, 0 ],
+      [ 0, 1, 1, 1, 0 ],
+      [ 0, 0, 0, 0, 0 ] ].each_with_index do |row, row_index|
+      row.each_with_index do |cell, cell_index|
+        r = WINDOW_HEIGHT / 2 - 2 + row_index
+        c = WINDOW_WIDTH / 2 - 2 + cell_index
+        @grid[r][c] = cell
+      end
+    end
   end
 
   def step_forward
@@ -56,7 +62,11 @@ class Life
     step_forward
     display_grid
     refresh_screen
-    sleep(0.5)
+    wait
+  end
+
+  def wait
+    sleep(0.3)
   end
 
   private
@@ -101,12 +111,9 @@ if __FILE__ == $PROGRAM_NAME
   game.initialise_screen
   game.display_grid
   game.refresh_screen
-  sleep(0.5)
-  game.run_once
-  game.run_once
-  game.run_once
-  game.run_once
-  game.run_once
-  game.run_once
+  game.wait
+  1.upto(100) do |tick|
+    game.run_once
+  end
   game.close_screen
 end
