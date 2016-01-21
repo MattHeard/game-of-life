@@ -8,4 +8,8 @@ class Screen
   def refresh
     Ncurses.refresh
   end
+
+  def close
+    Ncurses.endwin
+  end
 end

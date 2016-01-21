@@ -47,7 +47,7 @@ class Life
   end
 
   def close_screen
-    Ncurses.endwin
+    @screen.close
   end
 
   def neighbourhoods
