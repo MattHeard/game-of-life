@@ -12,8 +12,11 @@ class Life
   WINDOW_HEIGHT = `/usr/bin/env tput lines`.to_i
   WINDOW_WIDTH = `/usr/bin/env tput cols`.to_i
 
-  def initialise_grid
+  def initialize
     @screen = Screen.new
+  end
+
+  def initialise_grid
     @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
     [ [ 0, 0, 0, 0, 0 ],
       [ 0, 0, 1, 1, 0 ],
