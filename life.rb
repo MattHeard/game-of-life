@@ -62,6 +62,11 @@ class Life
     sleep(0.2)
   end
 
+  def show_initial_configuration
+    display_grid
+    wait
+  end
+
   private
 
   def initialise_grid
@@ -115,8 +120,7 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   game = Life.new
-  game.display_grid
-  game.wait
+  game.show_initial_configuration
   1.upto(10000) do |tick|
     game.run_once
   end
