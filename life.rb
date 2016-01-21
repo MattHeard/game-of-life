@@ -36,6 +36,7 @@ class Life
 
   def display_grid
     @grid.each_with_index { |row, index| display_row(index, row) }
+    refresh_screen
   end
 
   def initialise_screen
@@ -64,12 +65,11 @@ class Life
   def run_once
     step_forward
     display_grid
-    refresh_screen
     wait
   end
 
   def wait
-    sleep(0.3)
+    sleep(0.2)
   end
 
   private
@@ -113,7 +113,6 @@ if __FILE__ == $PROGRAM_NAME
   game.initialise_grid
   game.initialise_screen
   game.display_grid
-  game.refresh_screen
   game.wait
   1.upto(10000) do |tick|
     game.run_once
