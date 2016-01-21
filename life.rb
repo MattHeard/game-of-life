@@ -109,6 +109,7 @@ class Life
     @grid[0].size
   end
 
+  # TODO Figure out how to refactor this into Screen without breaking ncurses
   def display_row(index, row)
     Ncurses.mvaddstr(index, 0, row.map { |cell| picture(cell) }.join)
   end
