@@ -3,14 +3,19 @@
 require 'ncurses'
 
 class Life
+  attr_reader :grid
   PICTURE = [" ", "█"]
   UNKNOWN_VALUE_PICTURE = "?"
 
-  WINDOW_HEIGHT = `/usr/bin/env tput lines`.to_i
-  WINDOW_WIDTH = `/usr/bin/env tput cols`.to_i
+  WINDOW_HEIGHT = `/usr/bin/env tput lines`.to_i - 2
+  WINDOW_WIDTH = `/usr/bin/env tput cols`.to_i - 2
 
   def initialise_grid
-    @grid = Array.new(WINDOW_HEIGHT, Array.new(WINDOW_WIDTH, 1))
+    @grid = Array.new(WINDOW_HEIGHT, Array.new(WINDOW_WIDTH, 0))
+    @grid = WINDOW_HEIGHT.times.map do |row|
+      Array.new(WINDOW_WIDTH, 0)
+    end
+    @grid[WINDOW_HEIGHT / 2][WINDOW_WIDTH / 2] = 1
   end
 
   def display_grid
