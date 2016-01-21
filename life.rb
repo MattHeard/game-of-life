@@ -11,10 +11,7 @@ class Life
   WINDOW_WIDTH = `/usr/bin/env tput cols`.to_i - 2
 
   def initialise_grid
-    @grid = Array.new(WINDOW_HEIGHT, Array.new(WINDOW_WIDTH, 0))
-    @grid = WINDOW_HEIGHT.times.map do |row|
-      Array.new(WINDOW_WIDTH, 0)
-    end
+    @grid = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
     @grid[WINDOW_HEIGHT / 2][WINDOW_WIDTH / 2] = 1
   end
 
