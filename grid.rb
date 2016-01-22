@@ -4,7 +4,8 @@ class Grid
 
   attr_accessor :matrix
 
-  def initialize
+  def initialize(config_file)
+    @config_file = config_file
     create_matrix
   end
 
@@ -34,7 +35,7 @@ class Grid
 
   def create_matrix
     @matrix = WINDOW_HEIGHT.times.map { |row| Array.new(WINDOW_WIDTH, 0) }
-    insert_config(ConfigLoader.new.load("r-pentomino.life-config"))
+    insert_config(ConfigLoader.new.load(@config_file))
   end
 
   def insert_config(config)

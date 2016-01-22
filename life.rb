@@ -1,5 +1,6 @@
 #! /usr/bin/env ruby
 
+require 'optparse'
 require 'pp'
 require 'ncurses'
 
@@ -14,9 +15,9 @@ class Life
   WINDOW_HEIGHT = `/usr/bin/env tput lines`.to_i
   WINDOW_WIDTH = `/usr/bin/env tput cols`.to_i
 
-  def initialize
+  def initialize(config_file)
     @screen = Screen.new
-    @grid = Grid.new
+    @grid = Grid.new(config_file)
     initialise_screen
   end
 
@@ -32,7 +33,7 @@ class Life
 
   def show_initial_configuration
     display_grid
-    wait
+    1.upto(10) { wait }
   end
 
   # TODO Figure out how to refactor this into Screen without breaking ncurses
@@ -93,7 +94,22 @@ class Life
 end
 
 if __FILE__ == $PROGRAM_NAME
-  game = Life.new
+  options = {:config => "r-pentomino.life-config"}
+
+  parser = OptionParser.new do |opts|
+    opts.banner = "Usage: life.rb [options]"
+    opts.on('-c', '--config config', 'Configuration') do |config|
+      options[:config] = config;
+    end
+
+    opts.on('-h', '--help', 'Display help') do
+      puts opts
+      exit
+    end
+  end
+  parser.parse!
+
+  game = Life.new(options[:config])
   game.show_initial_configuration
   1.upto(10_000) { game.run_once }
   game.exit
