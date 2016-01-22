@@ -94,7 +94,7 @@ class Life
 end
 
 if __FILE__ == $PROGRAM_NAME
-  options = {:config => "r-pentomino.life-config"}
+  options = {:config => "config/r-pentomino.life-config"}
 
   parser = OptionParser.new do |opts|
     opts.banner = "Usage: life.rb [options]"
