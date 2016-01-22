@@ -3,6 +3,7 @@
 require 'pp'
 require 'ncurses'
 
+require_relative 'config_loader'
 require_relative 'grid'
 require_relative 'screen'
 
